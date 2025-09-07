@@ -1,0 +1,22 @@
+feeds = [
+    ["about amazon", "https://www.aboutamazon.com/about-amazon-rss.rss"],
+    ["amazon ai", "https://www.aboutamazon.com/news/amazon-ai.rss"],
+    ["amazon offices", "https://www.aboutamazon.com/news/amazon-offices.rss"],
+    ["amazon prime", "https://www.aboutamazon.com/news/amazon-prime.rss"],
+    ["amazon aws", "https://www.aboutamazon.com/news/aws.rss"],
+    ["amazon books and authors", "https://www.aboutamazon.com/news/books-and-authors.rss"],
+    ["amazon community", "https://www.aboutamazon.com/news/community.rss"],
+    ["amazon company news", "https://www.aboutamazon.com/news/company-news.rss"],
+    ["amazon devices", "https://www.aboutamazon.com/news/devices.rss"],
+    ["amazon entertainment", "https://www.aboutamazon.com/news/entertainment.rss"],
+    ["amazon - how amazon works", "https://www.aboutamazon.com/news/how-amazon-works.rss"],
+    ["amazon - innovation at amazon", "https://www.aboutamazon.com/news/innovation-at-amazon.rss"],
+    ["amazon - job creation and investment", "https://www.aboutamazon.com/news/job-creation-and-investment.rss"],
+    ["amazon - operations", "https://www.aboutamazon.com/news/operations.rss"],
+    ["amazon - policy news views", "https://www.aboutamazon.com/news/policy-news-views.rss"],
+    ["amazon - retail", "https://www.aboutamazon.com/news/retail.rss"],
+    ["amazon - small business", "https://www.aboutamazon.com/news/small-business.rss"],
+    ["amazon - sustainability", "https://www.aboutamazon.com/news/sustainability.rss"],
+    ["amazon - transportation", "https://www.aboutamazon.com/news/transportation.rss"],
+    ["amazon - workplace", "https://www.aboutamazon.com/news/workplace.rss"]
+]

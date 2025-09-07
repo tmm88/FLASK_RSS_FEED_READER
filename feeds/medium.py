@@ -1,0 +1,22 @@
+feeds = [
+    ["medium - @dev_tips", "https://medium.com/feed/@dev_tips"],
+    ["medium - @jh.baek.sd", "https://medium.com/feed/@jh.baek.sd"],
+    ["medium - @jimclydemonge", "https://medium.com/feed/@jimclydemonge"],
+    ["medium - @jacobistyping", "https://medium.com/feed/@jacobistyping"],
+    ["medium - @adarsh-gupta", "https://medium.com/feed/@adarsh-gupta"],
+    ["medium - freeCodeCamp - Programming Tutorials", "https://medium.com/feed/free-code-camp"],
+    ["medium - The Startup - Tech and Entrepreneurship", "https://medium.com/feed/swlh"],
+    ["medium - Towards Data Science - Data and Programming", "https://medium.com/feed/towards-data-science"],
+    ["medium - Hacker Noon - Tech and Open Source", "https://medium.com/feed/hackernoon"],
+    ["medium - @linuxhint - Linux Tutorials", "https://medium.com/feed/@linuxhint"],
+    ["medium - Better Programming - Coding Best Practices", "https://medium.com/feed/better-programming"],
+    ["medium - @ossia - Open Source Insights", "https://medium.com/feed/@ossia"],
+    ["medium - DevOps Dudes - DevOps and Linux", "https://medium.com/feed/devops-dudes"],
+    ["medium - @linuxtips - Linux and SysAdmin Tips", "https://medium.com/feed/@linuxtips"],
+    ["medium - The New Stack - Open Source and Cloud", "https://medium.com/feed/the-new-stack"],
+    ["medium - @javinpaul - Java and Open Source", "https://medium.com/feed/@javinpaul"],
+    ["medium - @opensource - Open Source Community", "https://medium.com/feed/opensource"],
+    ["medium - @itnext - IT and Software Development", "https://medium.com/feed/itnext"],
+    ["medium - @dailycoding - Programming and Tech Tips", "https://medium.com/feed/@dailycoding"],
+    ["medium - @gitconnected - Developer Community", "https://medium.com/feed/gitconnected"]
+]

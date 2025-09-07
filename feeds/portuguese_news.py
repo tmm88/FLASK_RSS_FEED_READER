@@ -1,0 +1,22 @@
+feeds = [
+    ["Público", "https://feeds.feedburner.com/PublicoRSS"],
+    ["RTP Últimas", "https://www.rtp.pt/noticias/rss"],
+    ["exame informatica", "https://visao.pt/exameinformatica/feed"],
+    ["Jornal de Notícias", "https://www.jn.pt/rss"],
+    ["Diário de Notícias", "https://www.dn.pt/rss"],
+    ["Correio da Manhã", "https://www.cmjornal.pt/rss"],
+    ["Sapo Tek - Tecnologia", "https://tek.sapo.pt/rss"],
+    ["Observador", "https://observador.pt/feed/"],
+    ["Expresso", "https://expresso.pt/rss"],
+    ["TSF Rádio Notícias", "https://www.tsf.pt/rss"],
+    ["Pplware - Tecnologia e Software", "https://pplware.sapo.pt/feed/"],
+    ["Eco - Economia e Tecnologia", "https://eco.sapo.pt/feed/"],
+    ["Meio Bit - Tecnologia e Open Source", "https://www.meiobit.com/feed/"],
+    ["Computerworld Portugal - IT News", "https://www.computerworld.pt/feed/"],
+    ["Bit Magazine - Tecnologia", "https://bit.pt/feed/"],
+    ["Notícias ao Minuto - Tecnologia", "https://www.noticiasaominuto.com/rss/tech"],
+    ["Zwame - Tecnologia e Informática", "https://forum.zwame.pt/forums/tecnologia.9/index.rss"],
+    ["TechBit - Tecnologia e Gadgets", "https://techbit.pt/feed/"],
+    ["PCGuia - Tecnologia e Hardware", "https://www.pcguia.pt/feed/"],
+    ["Linux Portugal - Linux e Open Source", "https://linuxportugal.com/feed/"]
+]

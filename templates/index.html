@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum RSS Nexus</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+  <style>
+    :root {
+      --neon-blue: #00f7ff;
+      --neon-pink: #ff00f7;
+      --neon-purple: #8a2be2;
+      --dark-space: #0a0a1a;
+      --deep-space: #000033;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Rajdhani', sans-serif;
+      color: white;
+      overflow-x: hidden;
+    }
+    
+    #particle-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .content-overlay {
+      position: relative;
+      z-index: 10;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+    
+    /* Futuristic UI Elements */
+    .quantum-header {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 20px rgba(0, 247, 255, 0.5);
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    
+    .quantum-card {
+      background: rgba(10, 10, 30, 0.7) !important;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 247, 255, 0.3) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 0 30px rgba(0, 247, 255, 0.2),
+                  0 0 10px rgba(255, 0, 247, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin-bottom: 2rem;
+    }
+    
+    .quantum-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px rgba(0, 247, 255, 0.3),
+                  0 0 15px rgba(255, 0, 247, 0.2);
+    }
+    
+    .card-header {
+      background: linear-gradient(90deg, 
+                rgba(0, 247, 255, 0.1) 0%, 
+                rgba(138, 43, 226, 0.2) 50%, 
+                rgba(255, 0, 247, 0.1) 100%) !important;
+      border-bottom: 1px solid rgba(0, 247, 255, 0.4) !important;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--neon-blue) !important;
+      text-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
+    }
+    
+    .news-item {
+      background: rgba(20, 20, 50, 0.5) !important;
+      border: 1px solid rgba(138, 43, 226, 0.2) !important;
+      color: white !important;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.25rem;
+    }
+    
+    .news-item:hover {
+      background: rgba(40, 40, 80, 0.7) !important;
+      transform: translateX(5px);
+    }
+    
+    .news-item .bullet {
+      color: var(--neon-blue);
+      margin-right: 0.75rem;
+      font-size: 0.8rem;
+    }
+    
+    .news-link {
+      color: var(--neon-blue) !important;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      flex-grow: 1;
+    }
+    
+    .news-link:hover {
+      color: white !important;
+      text-shadow: 0 0 8px var(--neon-blue);
+    }
+    
+    .news-link::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .news-link:hover::after {
+      transform: scaleX(1);
+    }
+    
+    .news-preview {
+      display: block;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 0.25rem;
+    }
+    
+    .status-bar {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      margin-top: 2rem;
+    }
+    
+    .particle-count {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    
+    /* Loading animations */
+    @keyframes pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+    
+    .loading {
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .content-overlay {
+        padding: 1.5rem;
+      }
+      
+      .quantum-header {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Three.js Particle Container -->
+  <div id="particle-container"></div>
+  
+  <!-- Main Content -->
+  <div class="content-overlay">
+    <div class="container">
+      <h1 class="quantum-header">⚡ QUANTUM RSS NEXUS</h1>
+      
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="quantum-card">
+            <div class="card-header py-3" id="feed-header">
+              <span class="loading">CONNECTING TO QUANTUM FEED NETWORK...</span>
+            </div>
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush" id="news-list">
+                <li class="list-group-item news-item loading">
+                  <span class="bullet">⬢</span>
+                  <span>Initializing quantum entanglement</span>
+                </li>
+                <li class="list-group-item news-item loading">
+                  <span class="bullet">⬢</span>
+                  <span>Tuning hyperdimensional receivers</span>
+                </li>
+                <li class="list-group-item news-item loading">
+                  <span class="bullet">⬢</span>
+                  <span>Calibrating neural decoders</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="status-bar">
+            <span id="last-updated">Last synchronized: --:--:--</span>
+            <span class="mx-2">•</span>
+            <span id="feed-count">0 feeds available</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="particle-count">
+    <i class="bi bi-stars"></i> <span id="particle-count-value">15,000</span> quantum particles
+  </div>
+
+  <!-- Three.js Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <!-- Main App Script -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+    import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+    import { RGBShiftShader } from 'three/addons/shaders/RGBShiftShader.js';
+    import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
+    
+    // Initialize Three.js Particle System
+    function initParticles() {
+      const container = document.getElementById('particle-container');
+      
+      // Scene setup
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x000000, 0.015);
+      
+      // Camera
+      const camera = new THREE.PerspectiveCamera(
+        75, 
+        window.innerWidth / window.innerHeight, 
+        0.1, 
+        1000
+      );
+      camera.position.set(0, 0, 20);
+      
+      // Renderer
+      const renderer = new THREE.WebGLRenderer({ 
+        antialias: true,
+        alpha: true
+      });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      container.appendChild(renderer.domElement);
+      
+      // Post-processing
+      const composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, camera));
+      
+      const bloomPass = new UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        1.5, 0.6, 0.9
+      );
+      bloomPass.threshold = 0.1;
+      bloomPass.strength = 1.8;
+      bloomPass.radius = 0.8;
+      composer.addPass(bloomPass);
+      
+      const rgbShiftPass = new ShaderPass(RGBShiftShader);
+      rgbShiftPass.uniforms['amount'].value = 0.0025;
+      composer.addPass(rgbShiftPass);
+      
+      const filmPass = new FilmPass(0.35, 0.5, 2048, false);
+      composer.addPass(filmPass);
+      
+      // Particle system
+      const PARTICLE_COUNT = 15000;
+      const particlesGeometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(PARTICLE_COUNT * 3);
+      const colors = new Float32Array(PARTICLE_COUNT * 3);
+      const sizes = new Float32Array(PARTICLE_COUNT);
+      
+      const colorPalette = [
+        new THREE.Color(0x00f7ff),
+        new THREE.Color(0xff00f7),
+        new THREE.Color(0x8a2be2),
+        new THREE.Color(0x00ff88),
+        new THREE.Color(0xff7700)
+      ];
+      
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const radius = 15 * Math.pow(Math.random(), 0.5);
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        
+        positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+        positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+        positions[i * 3 + 2] = radius * Math.cos(phi);
+        
+        const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        colors[i * 3] = color.r;
+        colors[i * 3 + 1] = color.g;
+        colors[i * 3 + 2] = color.b;
+        
+        sizes[i] = 0.02 + Math.random() * 0.08;
+      }
+      
+      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      particlesGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+      
+      const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.05,
+        vertexColors: true,
+        sizeAttenuation: true,
+        transparent: true,
+        opacity: 0.9,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      
+      const particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
+      scene.add(particleSystem);
+      
+      // Animation
+      const clock = new THREE.Clock();
+      let time = 0;
+      const speedFactors = new Float32Array(PARTICLE_COUNT);
+      
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        speedFactors[i] = 0.2 + Math.random() * 0.8;
+      }
+      
+      function animate() {
+        requestAnimationFrame(animate);
+        
+        const delta = clock.getDelta();
+        time += delta * 0.5;
+        
+        const positions = particleSystem.geometry.attributes.position.array;
+        
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          const i3 = i * 3;
+          const speed = speedFactors[i];
+          const angle = time * speed;
+          
+          positions[i3] = positions[i3] * Math.cos(angle * 0.01) - positions[i3 + 2] * Math.sin(angle * 0.01);
+          positions[i3 + 1] = positions[i3 + 1] * Math.cos(angle * 0.015) - positions[i3] * Math.sin(angle * 0.015);
+          positions[i3 + 2] = positions[i3 + 2] * Math.cos(angle * 0.02) - positions[i3 + 1] * Math.sin(angle * 0.02);
+          
+          const pulse = Math.sin(time * speed * 2) * 0.2 + 1;
+          positions[i3] *= pulse;
+          positions[i3 + 1] *= pulse;
+          positions[i3 + 2] *= pulse;
+        }
+        
+        particleSystem.geometry.attributes.position.needsUpdate = true;
+        particleSystem.rotation.y = time * 0.05;
+        composer.render();
+      }
+      
+      window.addEventListener('resize', () => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        
+        renderer.setSize(width, height);
+        composer.setSize(width, height);
+      });
+      
+      animate();
+    }
+    
+    // RSS Feed Loader
+    async function loadNews() {
+      try {
+        const response = await fetch('/news');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        document.getElementById("feed-header").innerHTML = 
+          `<span class="text-uppercase">${data.category}</span> → 
+           <span class="text-info">${data.feed_name}</span>`;
+        
+        const list = document.getElementById("news-list");
+        list.innerHTML = "";
+        
+        data.items.forEach(item => {
+          const li = document.createElement("li");
+          li.className = "list-group-item news-item";
+          li.innerHTML = `
+            <span class="bullet">⬢</span>
+            <div>
+              <a href="${item.link}" target="_blank" class="news-link">${item.title}</a>
+              ${item.preview ? `<span class="news-preview">${item.preview}</span>` : ''}
+            </div>
+          `;
+          list.appendChild(li);
+        });
+        
+        // Update status
+        const now = new Date();
+        document.getElementById("last-updated").textContent = 
+          `Last synchronized: ${now.toLocaleTimeString()}`;
+          
+        // For feed count, we'd need another endpoint or to pass it from the server
+        document.getElementById("feed-count").textContent = 
+          `Quantum feed network active`;
+          
+      } catch (error) {
+        console.error("Quantum feed disruption:", error);
+        document.getElementById("feed-header").textContent = 
+          "⚠ QUANTUM FEED DISRUPTION ⚠";
+        document.getElementById("news-list").innerHTML = 
+          `<li class="list-group-item news-item text-danger">
+            <span class="bullet">⬢</span>
+            <span>Error accessing quantum network</span>
+          </li>`;
+      }
+    }
+    
+    // Initialize everything
+    document.addEventListener('DOMContentLoaded', () => {
+      initParticles();
+      loadNews();
+      
+      // Refresh news every 15 seconds
+      setInterval(loadNews, 15000);
+    });
+  </script>
+</body>
+</html>
